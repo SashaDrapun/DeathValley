@@ -8,13 +8,16 @@ namespace DeathValley
 {
     public class ChartData
     {
-        public int[] labels;
-        public Point[] points;
-
-        public ChartData(int[] labels, Point[] points)
+        public ChartData(string[] labels, Point[] points)
         {
-            this.labels = labels;
-            this.points = points;
+            Labels = labels;
+            Points = points;
         }
+
+        public string[] Labels { get => labels; set => labels = value; }
+        public Point[] Points { get => points; set => points = value; }
+
+        private string[] labels;
+        private Point[] points;
     }
 }

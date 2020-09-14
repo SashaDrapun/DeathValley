@@ -17,17 +17,16 @@ namespace DeathValley
 
         public ChartData GetChartData()
         {
-            List<int> labels = new List<int>();
+            List<string> labels = new List<string>();
             List<Point> points = new List<Point>();
 
             for (int x = userData.RangeFrom; x <= userData.RangeTo; x+=userData.Step)
             {
-                labels.Add(x);
+                labels.Add(x.ToString());
                 int y = x * x * userData.A + userData.B * x + userData.C;
                 points.Add(new Point(x,y));
             }
-
-            return new ChartData(labels.ToArray(), points.ToArray());
+            return new ChartData(labels.ToArray(),points.ToArray());
         }
     }
 }

@@ -27,7 +27,6 @@ async function GetChartData(form) {
         const chartData = await response.json();
         console.log(chartData);
         CreateChart(chartData);
-
     }
     else {
         console.log("Не выполнился");
