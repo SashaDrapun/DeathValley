@@ -7,6 +7,13 @@ namespace DeathValley.Models
 {
     public partial class Point
     {
+        public Point(int chartId, int pointX, int pointY)
+        {
+            ChartId = chartId;
+            PointX = pointX;
+            PointY = pointY;
+        }
+
         public int PointId { get; set; }
         public int ChartId { get; set; }
         public int PointX { get; set; }

@@ -25,7 +25,6 @@ async function GetChartData(form) {
     });
     if (response.ok === true) {
         const chartData = await response.json();
-        console.log(chartData);
         CreateChart(chartData);
     }
     else {
@@ -35,8 +34,6 @@ async function GetChartData(form) {
 
 function CreateChart(chartData) {
     let ctx = document.getElementById('myChart').getContext('2d');
-    console.log(chartData.labels);
-    console.log(chartData.points);
     let myChart = new Chart(ctx, {
         type: 'line',
         data: {
