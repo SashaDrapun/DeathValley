@@ -22,6 +22,7 @@
                     <div class="col">Enter <span class="text-danger font-weight-bold">a</span></div>
                     <div class="col">
                         <input class="form-control" name="a" type="number">
+                        <label id="aError" class="d-none text-danger"></label>
                     </div>
                 </div>
 
@@ -29,6 +30,7 @@
                     <div class="col">Enter <span class="text-danger font-weight-bold">b</span></div>
                     <div class="col">
                         <input class="form-control" name="b" type="number">
+                        <label id="bError" class="d-none text-danger"></label>
                     </div>
                 </div>
 
@@ -36,6 +38,7 @@
                     <div class="col">Enter <span class="text-danger font-weight-bold">c</span></div>
                     <div class="col">
                         <input class="form-control" name="c" type="number">
+                        <label id="cError" class="d-none text-danger"></label>
                     </div>
                 </div>
 
@@ -43,6 +46,7 @@
                     <div class="col">Enter <span class="text-danger font-weight-bold">Step</span></div>
                     <div class="col">
                         <input class="form-control" name="step" type="number">
+                        <label id="stepError" class="d-none text-danger"></label>
                     </div>
                 </div>
 
@@ -50,13 +54,15 @@
                     <div class="col">Enter <span class="text-danger font-weight-bold center-block">from</span></div>
                     <div class="col">
                         <input class="form-control" name="rangeFrom" type="number">
+                        <label id="rangeFromError" class="d-none text-danger"></label>
                     </div>
                     <div class="col-1">
                         <span class="text-danger font-weight-bold center-block">to</span>
                     </div>
-                     <div class="col">
-                         <input class="form-control" name="rangeTo" type="number">
-                     </div>
+                    <div class="col">
+                        <input class="form-control" name="rangeTo" type="number">
+                        <label id="rangeToError" class="d-none text-danger"></label>
+                    </div>
                 </div>
 
                 <button class="center-block" type="submit">Plot</button>
@@ -66,6 +72,5 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-
-</script>
+<script src="~/js/jquery-3.5.1.min.js"></script>
 <script src="~/js/Main.js"></script>

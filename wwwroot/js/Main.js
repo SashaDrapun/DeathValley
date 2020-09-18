@@ -1,9 +1,9 @@
 ﻿document.forms["chartForm"].addEventListener("submit", e => {
     e.preventDefault();
-    GetChartData(document.forms["chartForm"]);
+    SubmitForm(document.forms["chartForm"]);
 });
 
-async function GetChartData(form) {
+async function SubmitForm(form) {
     const a = form.elements["a"].value;
     const b = form.elements["b"].value;
     const c = form.elements["c"].value;
@@ -11,26 +11,74 @@ async function GetChartData(form) {
     const to = form.elements["rangeTo"].value;
     const step = form.elements["step"].value;
 
-    const response = await fetch("api/chart", {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-            RangeFrom: parseInt(from),
-            RangeTo: parseInt(to),
-            Step: parseInt(step),
-            A: parseInt(a),
-            B: parseInt(b),
-            C: parseInt(c)
-        })
-    });
-    if (response.ok === true) {
-        const chartData = await response.json();
-        CreateChart(chartData);
-    }
-    else {
-        console.log("Не выполнился");
+    if (IsFormValid(a,b,c,from,to,step)) {
+        const response = await fetch("api/chart", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                RangeFrom: parseInt(from),
+                RangeTo: parseInt(to),
+                Step: parseInt(step),
+                A: parseInt(a),
+                B: parseInt(b),
+                C: parseInt(c)
+            })
+        });
+        if (response.ok === true) {
+            const chartData = await response.json();
+            CreateChart(chartData);
+        }
+        else {
+            console.log("Не выполнился");
+        }
     }
 }
+
+function IsFormValid(a, b, c, from, to, step) {
+    let isAllCorrect = true;
+    if (a == "") {
+        ShowMessage("aError", "Заполните поле");
+        isAllCorrect = false;
+    }
+    if (b == "") {
+        ShowMessage("bError", "Заполните поле");
+        isAllCorrect = false;
+    }
+    if (c == "") {
+        ShowMessage("cError", "Заполните поле");
+        isAllCorrect = false;
+    }
+    if (from == "") {
+        ShowMessage("rangeFromError", "Заполните поле");
+        isAllCorrect = false;
+    }
+    if(to == "") {
+        ShowMessage("rangeToError", "Заполните поле");
+        isAllCorrect = false;
+    }
+    if (step == "") {
+        ShowMessage("stepError", "Заполните поле");
+        isAllCorrect = false;
+    }
+
+    if (from != "" && to != "") {
+        if (from > to) {
+            ShowMessage("rangeFromError", "Значение от должно быть меньше значения до");
+            isAllCorrect = false;
+        }
+    }
+
+    return isAllCorrect;
+}
+
+function ShowMessage(id, message) {
+    document.querySelector("#" + id).textContent = message;
+    document.querySelector("#" + id).classList.remove('d-none');
+    setTimeout(function hide() {
+        document.querySelector("#" + id).classList.add('d-none');
+    }, 3000)
+}
+
 
 function CreateChart(chartData) {
     let ctx = document.getElementById('myChart').getContext('2d');
