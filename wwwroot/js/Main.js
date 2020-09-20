@@ -29,7 +29,13 @@ async function SubmitForm(form) {
             CreateChart(chartData);
         }
         else {
-            console.log("Не выполнился");
+            const errorData = await response.json();
+            console.log(errorData);
+            if (errorData.Step) {
+                for (var i = 0; i < errorData.Step.length; i++) {
+                    ShowMessage("stepError", errorData.Step[i]);
+                }
+            }
         }
     }
 }

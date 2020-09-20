@@ -21,16 +21,27 @@ namespace DeathValley.Controllers
         [HttpPost]
         public ActionResult<ChartData> Post([FromBody]UserData userData)
         {
-            CalculateChart calculateChart = new CalculateChart(userData);
-            ChartData chartData = calculateChart.GetChartData();
-            userDataRepository.Create(userData);
-            userDataRepository.Save();
-            for (int i = 0; i < chartData.Points.Length; i++)
+            if(userData.RangeFrom > userData.RangeTo)
             {
-                pointRepository.Create(new Point(userData.UserDataId, chartData.Points[i].X, chartData.Points[i].Y));
+                ModelState.AddModelError("RangeFrom", "Значение 'От' не должно превышать значение 'до'");
             }
-            pointRepository.Save();
-            return Ok(chartData);
+            if (ModelState.IsValid)
+            {
+                CalculateChart calculateChart = new CalculateChart(userData);
+                ChartData chartData = calculateChart.GetChartData();
+                userDataRepository.Create(userData);
+                userDataRepository.Save();
+                for (int i = 0; i < chartData.Points.Length; i++)
+                {
+                    pointRepository.Create(new Point(userData.UserDataId, chartData.Points[i].X, chartData.Points[i].Y));
+                }
+                pointRepository.Save();
+                return Ok(chartData);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            } 
         }
 
         #region Disposable

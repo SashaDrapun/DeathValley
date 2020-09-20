@@ -1,5 +1,6 @@
 ﻿using DeathValley.Interfaces;
 using DeathValley.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace DeathValley.Repositories
         public PointRepository(ApplicationContext context) : base(context)
         {
         }
+
     }
 }
